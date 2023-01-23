@@ -1,7 +1,9 @@
 # Trains management application
 
 ## Project description
-<p>The scope of this application is to create a medium that can be used for trains and railways managemnt. The user can manage trains, their schedule, tickets, stations, passengers and tracks for trains<p>
+The scope of this application is to create a medium that can be used for trains and railways managemnt. The user can manage trains, their schedule, tickets, stations, passengers and tracks for trains
+____
+
 ## Business Requirements:
 1. Information about schedules delays
 2. Buying train tickets for different routes
@@ -26,4 +28,4 @@
 
 ____
 ## Schemas:
-![schemas}(./resources/schemas.png)
+![schemas](./resources/schemas.png)
