@@ -1,5 +1,6 @@
 package com.example.trainsapp.service;
 
+import com.example.trainsapp.constants.Constants;
 import com.example.trainsapp.dto.TicketDto;
 import com.example.trainsapp.mapper.TicketMapper;
 import com.example.trainsapp.model.*;
@@ -36,19 +37,21 @@ public class TicketService {
     }
 
     public TicketDto findTicketById(int ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow();
+        Ticket ticket = ticketRepository.findById(ticketId) .orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));
         return ticketMapper.convertToDto(ticket);
     }
 
     public TicketDto updateTicket(int ticketId, TicketDto updatedTicketDto) {
-        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow();
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));
 //            Track newTrackDto = getTrackDtoWithStation (updatedTrackDto, track);
         if (!isNull(updatedTicketDto.getScheduleDto())) {
-            Schedule schedule = scheduleRepository.findById(updatedTicketDto.getScheduleDto().getScheduleId()).orElseThrow();
+            Schedule schedule = scheduleRepository.findById(updatedTicketDto.getScheduleDto().getScheduleId())
+                    .orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));;
             ticket.setSchedule(schedule);
         }
         if (!isNull(updatedTicketDto.getPassengerDto())) {
-            Passenger passenger = passengerRepository.findById(updatedTicketDto.getPassengerDto().getPassengerId()).orElseThrow();
+            Passenger passenger = passengerRepository.findById(updatedTicketDto.getPassengerDto().getPassengerId())
+                    .orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));;
             ticket.setPassenger(passenger);
         }
         ticket.setStandardPrice(updatedTicketDto.getStandardPrice());
@@ -59,7 +62,8 @@ public class TicketService {
         Ticket ticket = ticketMapper.convertFromDto(ticketDto);
 //            Track newTrackDto = getTrackDtoWithStation (updatedTrackDto, track);
         if (!isNull(ticketDto.getScheduleDto())) {
-            Schedule schedule = scheduleRepository.findById(ticketDto.getScheduleDto().getScheduleId()).orElseThrow();
+            Schedule schedule = scheduleRepository.findById(ticketDto.getScheduleDto().getScheduleId())
+                    .orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));;
             ticket.setSchedule(schedule);
         }
         if (!isNull(ticketDto.getPassengerDto())) {
@@ -71,7 +75,7 @@ public class TicketService {
     }
 
     public String deleteTicketById(Integer ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new RuntimeException(/*LocationConstants.LOCATION_NOT_FOUND_MESSAGE*/));
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));
         ticketRepository.deleteById(ticket.getTicketId());
         return ""/*LocationConstants.DELETE_OK_MESSAGE*/;
     }

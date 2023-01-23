@@ -1,6 +1,8 @@
 package com.example.trainsapp.service;
 
+import com.example.trainsapp.constants.Constants;
 import com.example.trainsapp.dto.TrackDto;
+import com.example.trainsapp.exception.StationNotFoundException;
 import com.example.trainsapp.mapper.TrackMapper;
 import com.example.trainsapp.model.Station;
 import com.example.trainsapp.model.Track;
@@ -43,8 +45,10 @@ public class TrackService {
         Track track = trackRepository.findById(trackId).orElseThrow();
 //            Track newTrackDto = getTrackDtoWithStation (updatedTrackDto, track);
         if (!isNull(updatedTrackDto.getStation1Id()) && !isNull(updatedTrackDto.getStation1Id())) {
-            Station station1 = stationRepository.findById(updatedTrackDto.getStation1Id().getStationId()).orElseThrow();
-            Station station2 = stationRepository.findById(updatedTrackDto.getStation2Id().getStationId()).orElseThrow();
+            Station station1 = stationRepository.findById(updatedTrackDto.getStation1Id().getStationId())
+                    .orElseThrow(() -> new RuntimeException(Constants.STATION_NOT_FOUND));
+            Station station2 = stationRepository.findById(updatedTrackDto.getStation2Id().getStationId())
+                    .orElseThrow(() -> new RuntimeException(Constants.STATION_NOT_FOUND));
             track.setStation1Id(station1);
             track.setStation2Id(station2);
         }
@@ -56,8 +60,10 @@ public class TrackService {
         Track track = trackMapper.convertFromDto(trackDto);
 //            Track newTrackDto = getTrackDtoWithStation (updatedTrackDto, track);
         if (!isNull(trackDto.getStation1Id()) && !isNull(trackDto.getStation1Id())) {
-            Station station1 = stationRepository.findById(trackDto.getStation1Id().getStationId()).orElseThrow();
-            Station station2 = stationRepository.findById(trackDto.getStation2Id().getStationId()).orElseThrow();
+            Station station1 = stationRepository.findById(trackDto.getStation1Id().getStationId())
+                    .orElseThrow(() -> new RuntimeException(Constants.STATION_NOT_FOUND));
+            Station station2 = stationRepository.findById(trackDto.getStation2Id().getStationId())
+                    .orElseThrow(() -> new RuntimeException(Constants.STATION_NOT_FOUND));
             track.setStation1Id(station1);
             track.setStation2Id(station2);
         }
@@ -66,7 +72,7 @@ public class TrackService {
     }
 
     public String deleteTrackById(Integer trackId) {
-        Track track = trackRepository.findById(trackId).orElseThrow(() -> new RuntimeException(/*LocationConstants.LOCATION_NOT_FOUND_MESSAGE*/));
+        Track track = trackRepository.findById(trackId).orElseThrow(() -> new RuntimeException(Constants.ID_NOT_FOUND));
         trackRepository.deleteById(track.getTrackId());
         return ""/*LocationConstants.DELETE_OK_MESSAGE*/;
     }
