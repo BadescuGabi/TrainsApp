@@ -1,21 +1,29 @@
 package com.example.trainsapp.controller;
 
 import com.example.trainsapp.dto.TrainDto;
-import com.example.trainsapp.model.Train;
+import com.example.trainsapp.repository.TrainRepository;
 import com.example.trainsapp.service.TrainService;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/train")
 public class TrainController {
     private final TrainService trainService;
+    private final TrainRepository trainRepository;
+    private static final Logger log = LoggerFactory.getLogger(TrainController.class);
 
-    public TrainController(TrainService trainService) {
+    @Autowired
+    public TrainController(TrainService trainService, TrainRepository trainRepository) {
         this.trainService = trainService;
+        this.trainRepository = trainRepository;
     }
 
 
@@ -27,8 +35,10 @@ public class TrainController {
 
     @PostMapping("/add")
     @ApiOperation("Add a train")
-    public ResponseEntity<TrainDto> addTrain(@RequestBody TrainDto trainDto) {
-        return ResponseEntity.ok().body(trainService.saveTrain(trainDto));
+    public ResponseEntity<TrainDto> addTrain(@Valid @RequestBody TrainDto trainDto) {
+        TrainDto savedTrainDto = trainService.saveTrain(trainDto);
+        log.info("Train saved: {}", savedTrainDto);
+        return ResponseEntity.ok(savedTrainDto);
     }
 
     @PutMapping("/edit/{trainId}")

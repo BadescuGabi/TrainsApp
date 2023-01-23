@@ -1,10 +1,12 @@
 package com.example.trainsapp.service;
 
+import com.example.trainsapp.controller.TrainController;
 import com.example.trainsapp.dto.TrainDto;
 import com.example.trainsapp.mapper.TrainMapper;
 import com.example.trainsapp.model.Train;
 import com.example.trainsapp.repository.TrainRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +16,23 @@ import static java.util.Objects.isNull;
 
 @Service
 public class TrainService {
+
     private final TrainRepository trainRepository;
+
     private final TrainMapper trainMapper;
 
-    @Autowired
+    private static final Logger log = LoggerFactory.getLogger(TrainController.class);
+
     public TrainService(TrainRepository trainRepository, TrainMapper trainMapper) {
         this.trainRepository = trainRepository;
         this.trainMapper = trainMapper;
     }
+
+
+//    public TrainService() {
+//    }
+//    @Autowired
+
 
     public List<TrainDto> retrieveTrains() {
         return trainRepository.findAll()
@@ -42,7 +53,13 @@ public class TrainService {
 
 
     public TrainDto saveTrain(TrainDto trainDto){
-       return trainMapper.convertToDto(trainRepository.save((trainMapper.convertFromDto(trainDto))));
+        Train train = trainMapper.convertFromDto(trainDto);
+        log.info("Converted from dto: {}", train);
+        trainRepository.save(train);
+        log.info("Saved into repository: {}", train);
+        TrainDto trainDtoNew = trainMapper.convertToDto(train);
+        log.info("New trainDTO: {}", trainDtoNew);
+       return trainDtoNew;
     }
 
     public String deleteTrainById(Integer trainId) {
