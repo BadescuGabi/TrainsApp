@@ -1,7 +1,6 @@
 package com.example.trainsapp.service;
 
 import com.example.trainsapp.dto.TicketDto;
-import com.example.trainsapp.dto.TrackDto;
 import com.example.trainsapp.mapper.TicketMapper;
 import com.example.trainsapp.model.*;
 import com.example.trainsapp.repository.PassengerRepository;

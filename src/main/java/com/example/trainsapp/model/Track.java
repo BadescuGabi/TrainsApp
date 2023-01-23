@@ -1,12 +1,7 @@
 package com.example.trainsapp.model;
 
-
-
-import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.Optional;
+import javax.persistence.*;
 
 @Getter
 @Setter

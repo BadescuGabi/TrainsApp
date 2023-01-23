@@ -1,8 +1,6 @@
 package com.example.trainsapp.dto;
 
-import com.example.trainsapp.model.Station;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

@@ -1,10 +1,8 @@
 package com.example.trainsapp.service;
 
 import com.example.trainsapp.dto.PassengerDto;
-import com.example.trainsapp.dto.TrainDto;
 import com.example.trainsapp.mapper.PassengerMapper;
 import com.example.trainsapp.model.Passenger;
-import com.example.trainsapp.model.Train;
 import com.example.trainsapp.repository.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

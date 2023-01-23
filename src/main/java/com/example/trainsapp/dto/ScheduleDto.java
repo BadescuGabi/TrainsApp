@@ -1,6 +1,6 @@
 package com.example.trainsapp.dto;
 
-import jakarta.persistence.Column;
+
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

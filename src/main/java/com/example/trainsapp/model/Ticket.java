@@ -1,8 +1,6 @@
 package com.example.trainsapp.model;
 
-
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Getter

@@ -2,10 +2,8 @@ package com.example.trainsapp.service;
 
 import com.example.trainsapp.dto.TrackDto;
 import com.example.trainsapp.mapper.TrackMapper;
-import com.example.trainsapp.model.Schedule;
 import com.example.trainsapp.model.Station;
 import com.example.trainsapp.model.Track;
-import com.example.trainsapp.model.Train;
 import com.example.trainsapp.repository.StationRepository;
 import com.example.trainsapp.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
